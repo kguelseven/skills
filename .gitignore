@@ -3,3 +3,7 @@ dist
 .tmp
 .sass-cache
 bower_components
+.idea
+atlassian-ide-plugin.xml
+skillsjs.iml
+
