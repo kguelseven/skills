@@ -8,10 +8,6 @@
  * Controller of the skillsJsApp
  */
 angular.module('skillsJsApp')
-  .controller('AboutCtrl', function ($scope) {
-    $scope.awesomeThings = [
-      'HTML5 Boilerplate',
-      'AngularJS',
-      'Karma'
-    ];
-  });
+	.controller('AboutController', function ($scope) {
+	}
+);
