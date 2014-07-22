@@ -445,3 +445,13 @@
 .ngFooterTotalItems {
   padding: 2px;
 }
+
+.ngViewport{
+    height:auto !important;
+}
+.ngCanvas, .ngViewport, .ngRow, .ngFooterPanel, .ngTopPanel   {
+    width: 100% !important;
+}
+.ngRow {
+    border-bottom:none !important;
+}

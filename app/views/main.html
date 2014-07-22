@@ -1,19 +1,28 @@
 <h1>Mitarbeiter Skills</h1>
 <form class="form-inline">
     <div class="form-group">
-        <label for="team">Team:</label>
-        <select id="team" ng-model="teamSelected" ng-options="team.name for team in teams"
+        <label for="team">Team</label>
+        <select id="team" class="form-control" ng-model="teamSelected" autofocus
+                ng-options="team.name for team in teams"
                 ng-change="teamChanged()"/>
     </div>
     <div class="form-group">
-        <label for="mitarbeiter">Mitarbeiter:</label>
-        <select id="mitarbeiter" ng-model="mitarbeiterSelected"
+        <label for="mitarbeiter">Mitarbeiter</label>
+        <select id="mitarbeiter" class="form-control" ng-model="mitarbeiterSelected"
                 ng-options="(mitarbeiter.name + ' ' + mitarbeiter.vorname) for mitarbeiter in mitarbeiters"
-                ng-change="mitarbeiterChanged()"/>
+                ng-change="updateSkills()"/>
+    </div>
+    <div class="form-group">
+        <label for="kategorie">Kategorie</label>
+        <select id="kategorie" class="form-control" ng-model="kategorieSelected"
+                ng-options="kategorie.name for kategorie in kategorien"
+                ng-change="updateSkills()">
+            <option value="">-- Kategorie auswählen --</option>
+        </select>
     </div>
 </form>
+<br/>
 <div class="gridStyle" ng-grid="gridOptions"></div>
-
 <!--
 <table class="table table-striped">
     <thead>
