@@ -73,7 +73,9 @@ module.exports = function (grunt) {
 			},
 			livereload: {
 				options: {
-					open: true,
+					open: {
+                        appName: 'Google Chrome'
+                    },
 					middleware: function (connect) {
 						return [
 							connect.static('.tmp'),

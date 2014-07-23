@@ -1,4 +1,4 @@
-<h1>Mitarbeiter Skills</h1>
+<h1>Skills verwalten</h1>
 <form class="form-inline">
     <div class="form-group">
         <label for="team">Team</label>
@@ -7,15 +7,15 @@
                 ng-change="teamChanged()"/>
     </div>
     <div class="form-group">
-        <label for="mitarbeiter">Mitarbeiter</label>
-        <select id="mitarbeiter" class="form-control" ng-model="mitarbeiterSelected"
-                ng-options="(mitarbeiter.name + ' ' + mitarbeiter.vorname) for mitarbeiter in mitarbeiters"
+        <label for="person">Mitarbeiter</label>
+        <select id="person" class="form-control" ng-model="personSelected"
+                ng-options="(person.name + ' ' + person.vorname) for person in persons"
                 ng-change="updateSkills()"/>
     </div>
     <div class="form-group">
-        <label for="kategorie">Kategorie</label>
-        <select id="kategorie" class="form-control" ng-model="kategorieSelected"
-                ng-options="kategorie.name for kategorie in kategorien"
+        <label for="category">Kategorie</label>
+        <select id="category" class="form-control" ng-model="categorySelected"
+                ng-options="category.id as category.name for category in categories"
                 ng-change="updateSkills()">
             <option value="">-- Kategorie auswählen --</option>
         </select>
@@ -23,23 +23,3 @@
 </form>
 <br/>
 <div class="gridStyle" ng-grid="gridOptions"></div>
-<!--
-<table class="table table-striped">
-    <thead>
-    <tr>
-        <th><a href="" ng-click="predicate = 'id'; reverse=!reverse">#</a></th>
-        <th><a href="" ng-click="predicate = 'skill'; reverse=!reverse">Skill</a></th>
-        <th><a href="" ng-click="predicate = 'expertise'; reverse=!reverse">Expertise</a></th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr ng-repeat="skill in skills | orderBy:predicate:reverse">
-        <td>{{skill.id}}</td>
-        <td>{{skill.skill}}</td>
-        <td>{{skill.expertise}}</td>
-    </tr>
-    </tbody>
-</table>
--->
-
-

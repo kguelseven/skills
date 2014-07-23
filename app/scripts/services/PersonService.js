@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('skillsJsApp')
-	.factory('mitarbeiterService', function (/*$resource*/) {
+	.factory('personService', function (/*$resource*/) {
 		var service = {
 
 			loadTeams: function () {
@@ -12,7 +12,7 @@ angular.module('skillsJsApp')
 				];
 			},
 
-			loadMitarbeiterByTeam: function (id) {
+			loadPersonByTeam: function (id) {
 				var results;
 				if (id === 1) {
 					results = [

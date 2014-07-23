@@ -113,3 +113,6 @@ body {
 .form-group {
     padding-right: 10px;
 }
+.form-inline {
+    margin-top: 20px;
+}
