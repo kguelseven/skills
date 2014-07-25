@@ -46,7 +46,11 @@
         </div>
     </div>
 </div>
+<div class="main">
+    <div ng-view=""></div>
+</div>
 
+<!--
 <div class="container-fluid">
     <div class="row">
         <div class="col-sm-3 col-md-2 sidebar">
@@ -60,11 +64,11 @@
         </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
             <div ng-view=""></div>
-            <!-- <div class="table-responsive"></div> -->
         </div>
     </div>
 </div>
 </div>
+-->
 
 <!--[if lt IE 9]>
 <script src="bower_components/es5-shim/es5-shim.js"></script>
@@ -94,7 +98,8 @@
 <script src="scripts/app.js"></script>
 <script src="scripts/services/SkillService.js"></script>
 <script src="scripts/services/PersonService.js"></script>
-<script src="scripts/controllers/MainController.js"></script>
+<script src="scripts/controllers/SkillsController.js"></script>
+<script src="scripts/controllers/SkillsGridController.js"></script>
 <script src="scripts/controllers/AboutController.js"></script>
 <!-- endbuild -->
 </body>

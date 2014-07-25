@@ -38,11 +38,11 @@ angular.module('skillsJsApp')
                 var i;
                 if (personId === 1) {
                     for (i = 0; i < 20; i++) {
-                        skills.push({ id: i, skill: 'Master Skill - ' + personId + '-' + i,  categoryId: 1, category: 'Java', interesse: 3, expertise: 3});
+                        skills.push({ id: i, skill: 'Master Skill - ' + personId + '-' + i,  categoryId: 1, category: 'Java', interest: 3, expertise: 3});
                     }
                 } else {
                     for (i = 0; i < 20; i++) {
-                        skills.push({ id: i, skill: 'FooBooZong Skill - ' + personId + '-' + i, categoryId: 2 , category: 'Datenbanken', interesse: 3, expertise: 0});
+                        skills.push({ id: i, skill: 'FooBooZong Skill - ' + personId + '-' + i, categoryId: 2 , category: 'Datenbanken', interest: 3, expertise: 0});
                     }
                 }
                 return skills;

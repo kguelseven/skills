@@ -106,7 +106,7 @@ body {
 
 .gridStyle {
     border: 1px solid rgb(212,212,212);
-    width: 800px;
+    width: auto;
 /*    height: 300px */
 }
 
@@ -115,4 +115,5 @@ body {
 }
 .form-inline {
     margin-top: 20px;
+    margin-bottom: 20px;
 }

@@ -447,6 +447,10 @@
   padding: 2px;
 }
 */
+
+.ngGrid {
+    border: 0px;
+}
 .ngViewport{
     height:auto !important;
 }

@@ -10,20 +10,18 @@
  */
 angular
 	.module('skillsJsApp', [
-		'ngAnimate',
 		'ngCookies',
 		'ngResource',
 		'ngRoute',
 		'ngSanitize',
-		'ngTouch',
 		'ui.bootstrap',
 		'ngGrid'
 	])
 	.config(function ($routeProvider) {
 		$routeProvider
 			.when('/', {
-				templateUrl: 'views/main.html',
-				controller: 'MainController'
+				templateUrl: 'views/skills.html',
+				controller: 'SkillsController'
 			})
 			.when('/about', {
 				templateUrl: 'views/about.html',

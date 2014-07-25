@@ -1,17 +1,21 @@
 <h1>Skills verwalten</h1>
+
 <form class="form-inline">
+
     <div class="form-group">
         <label for="team">Team</label>
         <select id="team" class="form-control" ng-model="teamSelected" autofocus
                 ng-options="team.name for team in teams"
                 ng-change="teamChanged()"/>
     </div>
+
     <div class="form-group">
         <label for="person">Mitarbeiter</label>
         <select id="person" class="form-control" ng-model="personSelected"
                 ng-options="(person.name + ' ' + person.vorname) for person in persons"
                 ng-change="updateSkills()"/>
     </div>
+
     <div class="form-group">
         <label for="category">Kategorie</label>
         <select id="category" class="form-control" ng-model="categorySelected"
@@ -20,6 +24,7 @@
             <option value="">-- Kategorie auswählen --</option>
         </select>
     </div>
+
 </form>
-<br/>
-<div class="gridStyle" ng-grid="gridOptions"></div>
+
+<div ng-controller="SkillsGridController" class="gridStyle" ng-grid="gridOptions"></div>
