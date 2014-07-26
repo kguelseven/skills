@@ -17,7 +17,7 @@ angular
 		'ui.bootstrap',
 		'ngGrid'
 	])
-	.config(function ($routeProvider) {
+	.config(function ($provide, $routeProvider) {
 		$routeProvider
 			.when('/', {
 				templateUrl: 'views/skills.html',
@@ -30,4 +30,11 @@ angular
 			.otherwise({
 				redirectTo: '/'
 			});
+        $provide.decorator("$exceptionHandler", function($delegate) {
+            return function(exception, cause) {
+                $delegate(exception, cause);
+                // TODO exception handling
+                // alert(exception.message);
+            };
 	});
+});

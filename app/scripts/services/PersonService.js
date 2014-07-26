@@ -6,9 +6,9 @@ angular.module('skillsJsApp')
 
 			loadTeams: function () {
 				return [
-					{ id: 1, name: 'T13'},
-					{ id: 2, name: 'T12'},
-					{ id: 3, name: 'T11'}
+					{ id: 1, name: 'CD1-T13'},
+					{ id: 2, name: 'CD1-T12'},
+					{ id: 3, name: 'CD1-T11'}
 				];
 			},
 

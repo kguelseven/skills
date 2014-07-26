@@ -12,41 +12,66 @@ angular.module('skillsJsApp')
         ];
 
         var skills = [
-            {id: 1, category: 1, name: 'JPA'},
-            {id: 2, category: 1, name: 'Web Services'},
-            {id: 3, category: 1, name: 'JAXB'},
-            {id: 4, category: 1, name: 'Security'},
-            {id: 5, category: 2, name: 'Oracle'},
-            {id: 6, category: 2, name: 'MS SQL'},
-            {id: 7, category: 2, name: 'Performance Tuning'},
-            {id: 8, category: 2, name: 'DBA'},
-            {id: 9, category: 3, name: 'Eclipse'},
-            {id: 10, category: 3, name: 'IntelliJ'},
-            {id: 11, category: 3, name: 'EA'}
+            {id: 1, categoryId: 1, category: 'Java', name: 'JPA'},
+            {id: 2, categoryId: 1, category: 'Java', name: 'Web Services'},
+            {id: 3, categoryId: 1, category: 'Java', name: 'JAXB'},
+            {id: 4, categoryId: 1, category: 'Java', name: 'Security'},
+            {id: 5, categoryId: 2, category: 'Datenbanken', name: 'Oracle'},
+            {id: 6, categoryId: 2, category: 'Datenbanken', name: 'MS SQL'},
+            {id: 7, categoryId: 2, category: 'Datenbanken', name: 'Performance Tuning'},
+            {id: 8, categoryId: 2, category: 'Datenbanken', name: 'DBA'},
+            {id: 9, categoryId: 3, category: 'Tools', name: 'Eclipse'},
+            {id: 10, categoryId: 3, category: 'Tools', name: 'IntelliJ'},
+            {id: 11, categoryId: 3, category: 'Tools', name: 'EA'}
         ];
+
+        var loadSkillsForPerson = function (personId) {
+            var skills = [];
+            var i;
+            for (i = 1; i < 9; i++) {
+                skills.push({ id: i, skill: i, interest: personId, expertise: personId % i});
+            }
+            return skills;
+        };
 
 
         var service = {
+
+
             loadCategories: function () {
                 return categories;
             },
-            loadSkills: function() {
-                return skills;
-            },
-            loadSkillsForPerson: function (personId) {
-                var skills = [];
-                var i;
-                if (personId === 1) {
-                    for (i = 0; i < 20; i++) {
-                        skills.push({ id: i, skill: 'Master Skill - ' + personId + '-' + i,  categoryId: 1, category: 'Java', interest: 3, expertise: 3});
+
+            loadSkills: function (personId) {
+                var skillsPerson = {};
+                angular.forEach(skills, function (skill) {
+                    skillsPerson[skill.id] = {skillId: skill.id, skill: skill.name, categoryId: skill.categoryId, category: skill.category, interest: 0, expertise: 0};
+                });
+
+                var skillsDefined = loadSkillsForPerson(personId);
+                angular.forEach(skillsDefined, function (skill) {
+                    if (!skillsPerson.hasOwnProperty(skill.skill)) {
+                        throw new Error('Unknown skills with id = ' + skill.skill);
                     }
-                } else {
-                    for (i = 0; i < 20; i++) {
-                        skills.push({ id: i, skill: 'FooBooZong Skill - ' + personId + '-' + i, categoryId: 2 , category: 'Datenbanken', interest: 3, expertise: 0});
+                    skillsPerson[skill.skill].id = skill.id;
+                    skillsPerson[skill.skill].interest = skill.interest;
+                    skillsPerson[skill.skill].expertise = skill.expertise;
+                });
+
+                var skillsArr = [];
+                for (var key in skillsPerson) {
+                    if (skillsPerson.hasOwnProperty(key)) {
+                        skillsArr.push(skillsPerson[key]);
                     }
                 }
-                return skills;
+
+                return skillsArr;
+            },
+
+            save: function (skill) {
+                console.log('saving:' + skill.id);
             }
+
         };
         return service;
     });
