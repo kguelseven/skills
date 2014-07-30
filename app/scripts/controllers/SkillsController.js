@@ -8,42 +8,80 @@
  * Controller of the skillsJsApp
  */
 angular.module('skillsJsApp')
-    .controller('SkillsController', function ($scope, skillService, personService) {
+    .controller('SkillsController', function ($scope, $timeout, skillService, personService) {
+
+        function errorAlert(msg) {
+            $scope.alerts.push({ type: 'danger', msg: msg });
+        }
+
+        $scope.alerts = [];
+        $scope.closeAlert = function (index) {
+            $scope.alerts.splice(index, 1);
+        };
+
 
         var unwatches = [];
-
-        var watchAttributes = function() {
+        var watchAttributes = function () {
             unwatches = [];
-            angular.forEach($scope.skills, function(skill, index) {
-                unwatches.push($scope.$watch('skills['+index+']', function (newval, oldval) {
-                    if((newval.interest !== oldval.interest) || (newval.expertise !== oldval.expertise)) {
-                        skillService.save(newval);
+            angular.forEach($scope.skills, function (skill, index) {
+                unwatches.push($scope.$watch('skills[' + index + ']', function (newval, oldval) {
+                    if ((newval.interest !== oldval.interest) || (newval.expertise !== oldval.expertise)) {
+                        skillService.saveSkill(newval).catch(function (error) {
+                            errorAlert(error);
+                        });
                     }
                 }, true));
             });
         };
 
         $scope.updateSkills = function () {
-            angular.forEach(unwatches, function(unwatch) {unwatch();});
-            $scope.skills = skillService.loadSkills($scope.personSelected.id);
-            if ($scope.categorySelected) {
-                $scope.skills = $scope.skills.filter(function (elem) {
-                    return elem.categoryId === $scope.categorySelected;
+            angular.forEach(unwatches, function (unwatch) {
+                unwatch();
+            });
+            if ($scope.personSelected) {
+                skillService.loadSkills($scope.personSelected.id).then(function (response) {
+                    $scope.skills = response;
+                    if ($scope.categorySelected) {
+                        $scope.skills = $scope.skills.filter(function (elem) {
+                            return elem.category.id === $scope.categorySelected;
+                        });
+                    }
+                    watchAttributes();
+                }).catch(function (error) {
+                    errorAlert(error);
                 });
             }
-            watchAttributes();
+            else {
+                $scope.skills = [];
+            }
         };
 
         $scope.teamChanged = function () {
-            $scope.persons = personService.loadPersonByTeam($scope.teamSelected.id);
-            $scope.personSelected = $scope.persons[0];
-            $scope.updateSkills();
+            personService.loadPersonByTeam($scope.teamSelected.id).then(function (response) {
+                $scope.persons = response;
+                $scope.personSelected = $scope.persons.length > 0 ? $scope.persons[0] : undefined;
+                $scope.updateSkills();
+            }).catch(function (error) {
+                errorAlert(error);
+            });
         };
 
+        $scope.closeAlert = function (index) {
+            $scope.alerts.splice(index, 1);
+        };
 
-        $scope.categories = skillService.loadCategories();
+        skillService.loadCategories().then(function (response) {
+            $scope.categories = response;
+        }).catch(function (error) {
+            errorAlert(error);
+        });
 
-        $scope.teams = personService.loadTeams();
-        $scope.teamSelected = $scope.teams[0];
-        $scope.teamChanged();
-    });
+        personService.loadTeams().then(function (response) {
+            $scope.teams = response;
+            $scope.teamSelected = $scope.teams.length > 0 ? $scope.teams[0] : undefined;
+            $scope.teamChanged();
+        }).catch(function (error) {
+            errorAlert(error);
+        });
+    }
+);

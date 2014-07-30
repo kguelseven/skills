@@ -28,10 +28,10 @@ angular.module('skillsJsApp')
         };
 
         var columnDefs = [
-            { field: 'skill', displayName: 'Skill', width: "*" },
-            { field: 'category', displayName: 'Kategorie', width: "20%" },
-            { field: 'interest', displayName: 'Interesse', cellTemplate: getInteresseCellTemplate(), width: "15%" },
-            { field: 'expertise', displayName: 'Expertise', cellTemplate: getExpertiseCellTemplate(), width: "15%" }
+            { field: 'name', displayName: 'Skill', width: "*" },
+            { field: 'category.name', displayName: 'Kategorie', width: "20%" },
+            { field: 'interest', displayName: 'Interesse', cellTemplate: getInteresseCellTemplate(), width: "20%" },
+            { field: 'expertise', displayName: 'Expertise', cellTemplate: getExpertiseCellTemplate(), width: "20%" }
         ];
 
         $scope.selectedItems = [];

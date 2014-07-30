@@ -10,7 +10,7 @@
     <div class="form-group">
         <label for="person">Mitarbeiter</label>
         <select id="person" class="form-control" ng-model="personSelected"
-                ng-options="(person.name + ' ' + person.vorname) for person in persons"
+                ng-options="(person.surname + ' ' + person.name) for person in persons"
                 ng-change="updateSkills()"/>
     </div>
 
@@ -24,5 +24,5 @@
     </div>
 </form>
 
-<alert type="danger" close="alerts = []" ng-show="alerts.length > 0">asödfj aöklsfdjaöskfja söfd</alert>
+<alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
 <div ng-controller="SkillsGridController" class="gridStyle" ng-grid="gridOptions"></div>

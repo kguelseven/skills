@@ -10,10 +10,8 @@
  */
 angular
 	.module('skillsJsApp', [
-		'ngCookies',
 		'ngResource',
 		'ngRoute',
-		'ngSanitize',
 		'ui.bootstrap',
 		'ngGrid'
 	])
