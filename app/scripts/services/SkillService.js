@@ -6,14 +6,14 @@ angular.module('skillsJsApp')
         var service = {
 
             loadCategories: function () {
-                return $http.get('/categories', {cache: true})
+                return $http.get('http://localhost:8080/categories', {cache: true})
                     .then(function (result) {
                         return result.data;
                     });
             },
 
             loadSkills: function (personId) {
-                return $http.get('/skills/' + personId)
+                return $http.get('http://localhost:8080/skills/' + personId)
                     .then(function (result) {
                         return result.data;
                     });
@@ -21,7 +21,7 @@ angular.module('skillsJsApp')
             },
 
             saveSkill: function (skill) {
-                return $http.post('/skills', skill)
+                return $http.post('http://localhost:8080/skills', skill)
                     .then(function (result) {
                         return result.data;
                     });

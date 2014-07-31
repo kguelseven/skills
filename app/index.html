@@ -4,15 +4,15 @@
     <meta charset="utf-8">
     <title>SkillsJS</title>
     <meta name="description" content="">
-    <meta name="viewport" content="width=device-width">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
-    <!-- build:css(.) styles/vendor.css -->
+    <!-- build:css(app) styles/vendor.css -->
     <!-- bower:css -->
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
     <link rel="stylesheet" href="bower_components/ng-grid/ng-grid.css" />
     <!-- endbower -->
     <!-- endbuild -->
-    <!-- build:css(.tmp) styles/main.css -->
+    <!-- build:css(app) styles/main.css -->
     <link rel="stylesheet" href="styles/main.css">
     <link rel="stylesheet" href="styles/ng-grid.css">
     <!-- endbuild -->
@@ -37,11 +37,23 @@
         </div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="#">Start</a></li>
-                <li><a href="#/about">About</a></li>
+                <li><a href="#">Skills</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Mehr..<span class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li class="divider"></li>
+                        <li class="dropdown-header">Stammdaten</li>
+                        <li><a href="#">Teams (todo)</a></li>
+                        <li><a href="#">Mitarbeiter (todo)</a></li>
+                        <li><a href="#">Skills (todo)</a></li>
+                        <li class="divider"></li>
+                        <li class="dropdown-header">Info</li>
+                        <li><a href="about">About</a></li>
+                    </ul>
+                </li>
             </ul>
             <form class="navbar-form navbar-right">
-                <input type="text" class="form-control" placeholder="Suchen...">
+                <input type="text" class="form-control" placeholder="Suchen (todo)...">
             </form>
         </div>
     </div>
@@ -55,22 +67,22 @@
 <script src="bower_components/json3/lib/json3.min.js"></script>
 <![endif]-->
 
-<!-- build:js(.) scripts/vendor.js -->
+<!-- build:js(app) scripts/vendor.js -->
 <!-- bower:js -->
 <script src="bower_components/jquery/dist/jquery.js"></script>
 <script src="bower_components/angular/angular.js"></script>
 <script src="bower_components/json3/lib/json3.js"></script>
 <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
-<script src="bower_components/ng-grid/build/ng-grid.js"></script>
 <script src="bower_components/angular-resource/angular-resource.js"></script>
 <script src="bower_components/angular-route/angular-route.js"></script>
 <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+<script src="bower_components/ng-grid/build/ng-grid.js"></script>
 <!-- endbower -->
 <!-- endbuild -->
 
-<!-- build:js({.tmp,app}) scripts/scripts.js -->
 <!-- <script src="bower_components/angular-bootstrap/ui-bootstrap.min.js"></script> -->
 
+<!-- build:js(app) scripts/scripts.js -->
 <script src="scripts/app.js"></script>
 <script src="scripts/services/SkillService.js"></script>
 <script src="scripts/services/PersonService.js"></script>

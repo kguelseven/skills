@@ -30,18 +30,19 @@ angular.module('skillsJsApp')
         var columnDefs = [
             { field: 'name', displayName: 'Skill', width: "*" },
             { field: 'category.name', displayName: 'Kategorie', width: "20%" },
-            { field: 'interest', displayName: 'Interesse', cellTemplate: getInteresseCellTemplate(), width: "20%" },
-            { field: 'expertise', displayName: 'Expertise', cellTemplate: getExpertiseCellTemplate(), width: "20%" }
+            { field: 'interest', displayName: 'Interesse', cellTemplate: getInteresseCellTemplate(), width: "15%" },
+            { field: 'expertise', displayName: 'Expertise', cellTemplate: getExpertiseCellTemplate(), width: "15%" }
         ];
 
         $scope.selectedItems = [];
         $scope.gridOptions = {
             data: 'skills',
             showFooter: true,
-            showFilter: true,
+            showFilter: false,
             multiSelect: false,
             selectedItems: $scope.selectedItems,
             footerRowHeight: 40,
-            columnDefs: columnDefs
+            columnDefs: columnDefs,
+            filterOptions: $scope.filterOptions
         };
     });

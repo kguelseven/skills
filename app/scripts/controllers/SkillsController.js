@@ -10,28 +10,9 @@
 angular.module('skillsJsApp')
     .controller('SkillsController', function ($scope, $timeout, skillService, personService) {
 
-        function errorAlert(msg) {
-            $scope.alerts.push({ type: 'danger', msg: msg });
-        }
-
         $scope.alerts = [];
         $scope.closeAlert = function (index) {
             $scope.alerts.splice(index, 1);
-        };
-
-
-        var unwatches = [];
-        var watchAttributes = function () {
-            unwatches = [];
-            angular.forEach($scope.skills, function (skill, index) {
-                unwatches.push($scope.$watch('skills[' + index + ']', function (newval, oldval) {
-                    if ((newval.interest !== oldval.interest) || (newval.expertise !== oldval.expertise)) {
-                        skillService.saveSkill(newval).catch(function (error) {
-                            errorAlert(error);
-                        });
-                    }
-                }, true));
-            });
         };
 
         $scope.updateSkills = function () {
@@ -83,5 +64,29 @@ angular.module('skillsJsApp')
         }).catch(function (error) {
             errorAlert(error);
         });
+
+        $scope.filterOptions = {
+            filterText: ''
+        };
+
+        function errorAlert(msg) {
+            $scope.alerts.push({ type: 'danger', msg: msg });
+        }
+
+        var unwatches = [];
+        function watchAttributes () {
+            unwatches = [];
+            angular.forEach($scope.skills, function (skill, index) {
+                unwatches.push($scope.$watch('skills[' + index + ']', function (newval, oldval) {
+                    if ((newval.interest !== oldval.interest) || (newval.expertise !== oldval.expertise)) {
+                        skillService.saveSkill(newval).catch(function (error) {
+                            errorAlert(error);
+                        });
+                    }
+                }, true));
+            });
+        };
+
+
     }
 );

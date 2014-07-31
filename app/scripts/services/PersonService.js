@@ -6,14 +6,14 @@ angular.module('skillsJsApp')
         var service = {
 
             loadTeams: function () {
-                return $http.get('/teams', {cache: true})
+                return $http.get('http://localhost:8080/teams', {cache: true})
                     .then(function (result) {
                         return result.data;
                     });
             },
 
             loadPersonByTeam: function (id) {
-                return $http.get('/teams/' + id, {cache: true})
+                return $http.get('http://localhost:8080/teams/' + id, {cache: true})
                     .then(function (result) {
                         return result.data;
                     });
