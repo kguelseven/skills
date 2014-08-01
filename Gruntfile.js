@@ -278,7 +278,7 @@ module.exports = function (grunt) {
 					conservativeCollapse: true,
 					collapseBooleanAttributes: true,
 					removeCommentsFromCDATA: true,
-					removeOptionalTags: true
+					removeOptionalTags: false
 				},
 				files: [
 					{
@@ -340,7 +340,7 @@ module.exports = function (grunt) {
 					},
 					{
 						expand: true,
-						cwd: 'bower_components/bootstrap/dist',
+						cwd: '<%= yeoman.app %>/bower_components/bootstrap-css-only',
 						src: 'fonts/*',
 						dest: '<%= yeoman.dist %>'
 					}

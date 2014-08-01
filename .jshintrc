@@ -19,7 +19,12 @@
     "dojo"          : false,
 
     "predef"        : [
-        "angular"
+        "angular",
+        "expect",
+        "describe",
+        "it",
+        "beforeEach",
+        "afterEach"
     ],
 
 

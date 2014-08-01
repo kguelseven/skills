@@ -37,6 +37,7 @@ angular.module('skillsJsApp')
             multiSelect: false,
             selectedItems: $scope.selectedItems,
             footerRowHeight: 40,
+            sortInfo: {fields:['category.name'], directions:['asc']},
             columnDefs: [
                 { field: 'name', displayName: 'Skill', width: "*" },
                 { field: 'category.name', displayName: 'Kategorie', width: "20%" },
