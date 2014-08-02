@@ -15,7 +15,7 @@ angular
         'ui.bootstrap',
         'ngGrid'
     ])
-    .constant('REST_URL', '')
+    .constant('REST_URL', 'http://localhost:8080')
     .config(function ($provide, $routeProvider, $locationProvider) {
         $routeProvider
             .when('/', {
