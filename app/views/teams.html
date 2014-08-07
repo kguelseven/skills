@@ -2,10 +2,13 @@
     <h1>Teams/Mitarbeiter</h1>
     <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
     <div class="row">
-        <div class="col-md-3">
+        <div class="col-md-3" ng-controller="TeamsGridController">
             <h3>Teams <button type="button" class="btn btn-default btn-xs" ng-click="addTeam()">
-                <span class="glyphicon glyphicon-plus-sign"></span></button> </h3>
-            <div class="teamsGridStyle" ng-controller="TeamsGridController" ng-grid="teamsGridOptions">
+                <span class="glyphicon glyphicon-plus-sign"></span></button>
+                <span><button type="button" class="btn btn-default btn-xs" ng-click="goUp()" ng-hide="teamsStack.length === 0">
+                    <span class="glyphicon glyphicon-arrow-up"></span></button></span>
+            </h3>
+            <div class="teamsGridStyle" ng-grid="teamsGridOptions">
             </div>
         </div>
         <div class="col-md-9">
