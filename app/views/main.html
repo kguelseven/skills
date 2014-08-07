@@ -14,7 +14,7 @@
                     ng-options="(person.name + ' ' + person.surname) for person in persons"
                     ng-change="reloadSkills()"></select>
         </div>
-        <div class="form-group pull-right">
+        <div class="form-group">
             <label for="category">Filtern</label>
             <select id="category" class="form-control" ng-model="categorySelected"
                     ng-options="category.id as category.name for category in categories"
@@ -26,7 +26,8 @@
         </div>
     </form>
 </div>
+
 <div class="container">
     <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
-    <div ng-controller="MainGridController" class="gridStyle" ng-grid="gridOptions"></div>
+    <div ng-controller="MainGridController" class="skillsGridStyle" ng-grid="gridOptions"></div>
 </div>

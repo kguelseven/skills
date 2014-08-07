@@ -1,5 +1,18 @@
 <div class="container">
-    <h1>Teams</h1>
-
-    <p>This is the Teams view.</p>
+    <h1>Teams/Mitarbeiter</h1>
+    <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
+    <div class="row">
+        <div class="col-md-3">
+            <h3>Teams <button type="button" class="btn btn-default btn-xs" ng-click="addTeam()">
+                <span class="glyphicon glyphicon-plus-sign"></span></button> </h3>
+            <div class="teamsGridStyle" ng-controller="TeamsGridController" ng-grid="teamsGridOptions">
+            </div>
+        </div>
+        <div class="col-md-9">
+            <h3>Mitarbeiter ({{teamSelected}}) <button type="button" class="btn btn-default btn-xs" ng-click="addMember()">
+                <span class="glyphicon glyphicon-plus-sign"></span></button> </h3>
+            <div class="membersGridStyle" ng-grid="membersGridOptions">
+            </div>
+        </div>
+    </div>
 </div>

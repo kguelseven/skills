@@ -2,13 +2,13 @@
 
 /**
  * @ngdoc function
- * @name skillsJsApp.controller:SkillsController
+ * @name skillsJsApp.controller:MainController
  * @description
- * # SkillsController
+ * # MainController
  * Controller of the skillsJsApp
  */
 angular.module('skillsJsApp')
-    .controller('MainController', function ($scope, skillService, personService) {
+    .controller('MainController', ['$scope', 'skillService', 'personService', function ($scope, skillService, personService) {
 
         $scope.alerts = [];
         $scope.closeAlert = function (index) {
@@ -23,7 +23,7 @@ angular.module('skillsJsApp')
 
         $scope.reloadSkills = function () {
             angular.forEach(unwatches, function (unwatch) {
-                unwatch();
+                unwatch(); // ?? <== review
             });
             if ($scope.personSelected) {
                 skillService.loadSkills($scope.personSelected.id).then(function (response) {
@@ -35,7 +35,7 @@ angular.module('skillsJsApp')
                     }
                     watchAttributes();
                 }).catch(function (error) {
-                    errorAlert(error);
+                    errorAlert("Skills können nicht geladen werden. ");
                 });
             }
             else {
@@ -45,12 +45,12 @@ angular.module('skillsJsApp')
 
 
         $scope.teamChanged = function () {
-            personService.loadPersonByTeam($scope.teamSelected.id).then(function (response) {
+            personService.loadPersonsByTeam($scope.teamSelected.id).then(function (response) {
                 $scope.persons = response;
                 $scope.personSelected = $scope.persons.length > 0 ? $scope.persons[0] : undefined;
                 $scope.reloadSkills();
             }).catch(function (error) {
-                errorAlert(error);
+                errorAlert("Mitarbeiter können nicht geladen werden.");
             });
         };
 
@@ -60,19 +60,19 @@ angular.module('skillsJsApp')
             $scope.teamSelected = $scope.teams.length > 0 ? $scope.teams[0] : undefined;
             $scope.teamChanged();
         }).catch(function (error) {
-            errorAlert(error);
+            errorAlert("Teams können nicht geladen werden.");
         });
 
 
         skillService.loadCategories().then(function (response) {
             $scope.categories = response;
         }).catch(function (error) {
-            errorAlert(error);
+            errorAlert("Kategorien können nicht geladen werden.");
         });
 
 
         function errorAlert(msg) {
-            $scope.alerts.push({ type: 'danger', msg: msg });
+            $scope.alerts.push({ type: 'danger', msg: msg + ' Fehler beim Aufruf des Backends.' });
         }
 
         var unwatches = [];
@@ -89,5 +89,4 @@ angular.module('skillsJsApp')
                 }, true));
             });
         }
-    }
-);
+    }]);

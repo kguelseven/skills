@@ -3,7 +3,7 @@
 angular.module('skillsJsApp')
     .factory('personService', ['$http', 'REST_URL', function ($http, url) {
 
-        var service = {
+        return  {
 
             loadTeams: function () {
                 return $http.get(url + '/teams', {cache: true})
@@ -12,7 +12,7 @@ angular.module('skillsJsApp')
                     });
             },
 
-            loadPersonByTeam: function (id) {
+            loadPersonsByTeam: function (id) {
                 return $http.get(url + '/teams/' + id, {cache: true})
                     .then(function (result) {
                         return result.data;
@@ -20,5 +20,4 @@ angular.module('skillsJsApp')
             }
         };
 
-        return service;
     }]);

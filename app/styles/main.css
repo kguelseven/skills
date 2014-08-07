@@ -105,8 +105,16 @@ body {
     border-radius: 50%;
 }
 
-.gridStyle {
-    border: 1px solid rgb(212,212,212);
+.skillsGridStyle {
+    width: 900px;
+}
+
+.teamsGridStyle {
+    width: 250px;
+}
+
+.membersGridStyle {
+    width: 500px;
 }
 
 .form-group {

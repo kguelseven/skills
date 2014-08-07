@@ -8,6 +8,5 @@
  * Controller of the skillsJsApp
  */
 angular.module('skillsJsApp')
-    .controller('SkillsController', function ($scope) {
-    }
-);
+    .controller('SkillsController', ['$scope', function ($scope) {
+    }]);

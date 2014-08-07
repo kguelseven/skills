@@ -15,8 +15,8 @@ angular
         'ui.bootstrap',
         'ngGrid'
     ])
-    .constant('REST_URL', '')
-    .config(function ($provide, $routeProvider, $locationProvider) {
+    .constant('REST_URL', 'http://localhost:8080')
+    .config(['$provide', '$routeProvider', '$locationProvider', function ($provide, $routeProvider, $locationProvider) {
         $routeProvider
             .when('/', {
                 templateUrl: 'views/main.html',
@@ -31,19 +31,19 @@ angular
                 controller: 'TeamsController'
             })
             .when('/skills', {
-                templateUrl: '../views/skills.html',
+                templateUrl: 'views/skills.html',
                 controller: 'SkillsController'
             })
             .otherwise({
                 redirectTo: '/'
             });
         /*
-        $provide.decorator("$exceptionHandler", function ($delegate) {
-            return function (exception, cause) {
-                $delegate(exception, cause);
-                // TODO exception handling
-            };
-        });
-        */
+         $provide.decorator("$exceptionHandler", function ($delegate) {
+         return function (exception, cause) {
+         $delegate(exception, cause);
+         // TODO exception handling
+         };
+         });
+         */
         // $locationProvider.html5Mode(true);
-    });
+    }]);

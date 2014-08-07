@@ -2,12 +2,11 @@
 
 /**
  * @ngdoc function
- * @name skillsJsApp.controller:AboutCtrl
+ * @name skillsJsApp.controller:AboutController
  * @description
- * # AboutCtrl
+ * # AboutController
  * Controller of the skillsJsApp
  */
 angular.module('skillsJsApp')
-	.controller('AboutController', function ($scope) {
-	}
-);
+    .controller('AboutController', ['$scope', function ($scope) {
+    }]);
