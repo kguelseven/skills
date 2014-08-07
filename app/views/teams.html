@@ -2,20 +2,37 @@
     <h1>Teams/Mitarbeiter</h1>
     <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
     <div class="row">
-        <div class="col-md-3" ng-controller="TeamsGridController">
-            <h3>Teams <button type="button" class="btn btn-default btn-xs" ng-click="addTeam()">
-                <span class="glyphicon glyphicon-plus-sign"></span></button>
-                <span><button type="button" class="btn btn-default btn-xs" ng-click="goUp()" ng-hide="teamsStack.length === 0">
-                    <span class="glyphicon glyphicon-arrow-up"></span></button></span>
+        <div class="col-md-4" ng-controller="TeamsGridController">
+            <h3>Teams
+                <button type="button" class="btn btn-default btn-xs" ng-click="addTeam()"
+                        ng-show="showAddTeamButton">
+                    <span class="glyphicon glyphicon-plus-sign"></span></button>
+                <span class="pull-right"><button type="button" class="btn btn-default btn-xs"
+                                                 ng-click="goUp()"
+                                                 ng-hide="teamsStack.length === 0">
+                    <span class="glyphicon glyphicon-chevron-up"></span></button></span>
             </h3>
-            <div class="teamsGridStyle" ng-grid="teamsGridOptions">
+            <div ng-show="showTeamInput">
+                <form name="teamInputForm" class="form-inline">
+                    <div class="form-group">
+                        <label for="name" class="sr-only">Name</label>
+                        <input id="name" class="form-control" placeholder="Name eingeben" style="width: 260px;" type="text"
+                               ng-model="team.name" required/>
+                        <button type="button" class="btn btn-default btn-sm" ng-click="save()" ng-disabled="teamInputForm.$invalid || teamDoesNotExist() " >
+                            <span class="glyphicon glyphicon-ok"></span></button>
+                        <button type="button" class="btn btn-default btn-sm" ng-click="cancel()">
+                            <span class="glyphicon glyphicon-remove"></span></button>
+                    </div>
+                </form>
             </div>
+            <div class="teamsGridStyle" ng-grid="teamsGridOptions"></div>
         </div>
-        <div class="col-md-9">
-            <h3>Mitarbeiter ({{teamSelected}}) <button type="button" class="btn btn-default btn-xs" ng-click="addMember()">
-                <span class="glyphicon glyphicon-plus-sign"></span></button> </h3>
-            <div class="membersGridStyle" ng-grid="membersGridOptions">
-            </div>
+        <div class="col-md-8">
+            <h3>Mitarbeiter ({{teamSelected}})
+                <button type="button" class="btn btn-default btn-xs" ng-click="addMember()">
+                    <span class="glyphicon glyphicon-plus-sign"></span></button>
+            </h3>
+            <div class="membersGridStyle" ng-grid="membersGridOptions"></div>
         </div>
     </div>
 </div>

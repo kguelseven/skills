@@ -73,7 +73,7 @@ body {
 
 .main {
     padding: 20px;
-    width: 70%;
+    width: 80%;
 }
 @media (min-width: 768px) {
     .main {
@@ -109,13 +109,15 @@ body {
     width: 900px;
 }
 
+/*
 .teamsGridStyle {
-    width: 250px;
+    width1: 250px;
 }
 
 .membersGridStyle {
     width: 500px;
 }
+*/
 
 .form-group {
     padding-right: 10px;
@@ -137,10 +139,7 @@ body {
     letter-spacing:2px
 }
 
-/*
-.center {
-    float: none;
-    margin-left: auto;
-    margin-right: auto;
+.btn-default[disabled] {
+    color: #ccc;
+    border-color: #ccc;
 }
-*/

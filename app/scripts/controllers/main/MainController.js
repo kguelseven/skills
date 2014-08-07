@@ -8,7 +8,7 @@
  * Controller of the skillsJsApp
  */
 angular.module('skillsJsApp')
-    .controller('MainController', ['$scope', 'skillService', 'personService', function ($scope, skillService, personService) {
+    .controller('MainController', ['$scope', 'skillService', 'PersonService', function ($scope, skillService, personService) {
 
         $scope.alerts = [];
         $scope.closeAlert = function (index) {
