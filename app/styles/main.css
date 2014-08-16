@@ -5,8 +5,8 @@
 /* Move down content because we have a fixed navbar that is 50px tall */
 body {
     padding-top: 50px;
+    font-size: 12px;
 }
-
 
 /*
  * Global add-ons
@@ -33,6 +33,7 @@ body {
 .sidebar {
     display: none;
 }
+
 @media (min-width: 768px) {
     .sidebar {
         position: fixed;
@@ -55,17 +56,18 @@ body {
     margin-bottom: 20px;
     margin-left: -20px;
 }
+
 .nav-sidebar > li > a {
     padding-right: 20px;
     padding-left: 20px;
 }
+
 .nav-sidebar > .active > a,
 .nav-sidebar > .active > a:hover,
 .nav-sidebar > .active > a:focus {
     color: #fff;
     background-color: #428bca;
 }
-
 
 /*
  * Main content
@@ -75,16 +77,17 @@ body {
     padding: 20px;
     width: 80%;
 }
+
 @media (min-width: 768px) {
     .main {
         padding-right: 40px;
         padding-left: 40px;
     }
 }
+
 .main .page-header {
     margin-top: 0;
 }
-
 
 /*
  * Placeholder dashboard ideas
@@ -94,12 +97,15 @@ body {
     margin-bottom: 30px;
     text-align: center;
 }
+
 .placeholders h4 {
     margin-bottom: 0;
 }
+
 .placeholder {
     margin-bottom: 20px;
 }
+
 .placeholder img {
     display: inline-block;
     border-radius: 50%;
@@ -109,19 +115,16 @@ body {
     width: 900px;
 }
 
-/*
-.teamsGridStyle {
-    width1: 250px;
+.form-control {
+    height: 28px;
+    font-size: 12px;
+    padding: 3px 6px;
 }
-
-.membersGridStyle {
-    width: 500px;
-}
-*/
 
 .form-group {
     padding-right: 10px;
 }
+
 .form-inline {
     margin-top: 20px;
     margin-bottom: 20px;
@@ -130,16 +133,21 @@ body {
 .ratingExpertise {
     color: orange;
     font-size: 18px;
-    letter-spacing:2px
+    letter-spacing: 2px
 }
 
 .ratingInteresse {
     color: #ff004b;
     font-size: 17px;
-    letter-spacing:2px
+    letter-spacing: 2px
 }
 
 .btn-default[disabled] {
     color: #ccc;
     border-color: #ccc;
+}
+
+.navbar-inverse .navbar-brand,
+.navbar-inverse .navbar-nav > li > a {
+    color: #dddddd;
 }

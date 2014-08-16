@@ -2,96 +2,96 @@
 
 /**
  * @ngdoc function
- * @name skillsJsApp.controller:TeamsController
+ * @name skillsJsApp.controller:TeamsGridController
  * @description
- * # TeamsController
- * Controller of the skillsJsApp
- */
-'use strict';
-
-/**
- * @ngdoc function
- * @name skillsJsApp.controller:TeamsController
- * @description
- * # TeamsController
+ * # TeamsGridController
  * Controller of the skillsJsApp
  */
 angular.module('skillsJsApp')
-	.controller('TeamsGridController', ['$scope', '$timeout', 'PersonService', function ($scope, $timeout, personService) {
+	.controller('TeamsGridController', ['$scope', '$timeout', 'PersonService', 'Focus', function ($scope, $timeout, personService, focusService) {
 
+		$scope.teamEdited = null;
+		$scope.parentTeamStack = [];
 		$scope.showAddTeamButton = true;
-		$scope.addTeam = function () {
-			showTeamInput(true);
-		}
 
-		$scope.team = null;
-		$scope.save = function () {
-			personService.saveTeam($scope.team).then(function (response) {
-				$scope.$parent.teams.push(response);
-				console.log('id?:' + JSON.stringify(response));
-				$scope.team = null;
-				showTeamInput(false);
-			}).catch(function (error) {
-				$scope.errorAlert(error);
-			});
-		}
+		$scope.addTeam = function () {
+			$scope.teamEdited = {};
+			var parent = $scope.getParentTeam();
+			$scope.teamEdited.parentId = parent ? parent.id : null;
+			showTeamEdit(true);
+		};
 
 		$scope.cancel = function () {
-			showTeamInput(false);
-		}
+			showTeamEdit(false);
+		};
 
-		$scope.delete = function (team) {
-			console.log('deleting:' + JSON.stringify(team) );
-			personService.deleteTeam(team.id).then(function (response) {
-				var index = $scope.$parent.teams.indexOf(team);
-				$scope.$parent.teams.splice(index, 1);
+		$scope.save = function () {
+			var addOrUpdate = $scope.teamEdited.id ? personService.updateTeam : personService.addTeam;
+			addOrUpdate($scope.teamEdited).then(function (team) {
+				loadTeams(team.parentId, 0);
+				showTeamEdit(false);
 			}).catch(function (error) {
 				$scope.errorAlert(error);
 			});
-		}
+		};
 
-		$scope.teamDoesNotExist = function () {
+		$scope.delete = function (team) {
+			personService.deleteTeam(team.id).then(function (response) {
+				loadTeams(team.parentId, 0);
+			}).catch(function (error) {
+				$scope.errorAlert(error);
+			});
+		};
+
+		$scope.edit = function (team) {
+			$scope.teamEdited = angular.copy(team);
+			showTeamEdit(true);
+		};
+
+		$scope.isValidTeam = function () { //review
+			if (!$scope.$parent.teams) {
+				return true;
+			}
 			for (var i = 0; i < $scope.$parent.teams.length; i++) {
-				if ($scope.$parent.teams[i].name === $scope.team.name) {
+				if ($scope.$parent.teams[i].name === $scope.teamEdited.name &&
+					$scope.$parent.teams[i] !== $scope.teamEdited) {
 					return true;
 				}
 			}
 			return false;
-		}
+		};
 
-		function showTeamInput(show) {
+		function showTeamEdit(show) {
 			$scope.showTeamInput = show;
 			$scope.showAddTeamButton = !show;
+			if (show) {
+				focusService('teamEdited.name');
+			}
+			else {
+				$scope.teamEdited = null;
+			}
 		}
 
-		$scope.teamsStack = [];
-		$scope.goDown = function (team) {
-			if ($scope.hasSubTeams(team)) {
-				$scope.teamsStack.push($scope.$parent.teams);
-				$scope.$parent.teams = team.subteams;
-				$timeout(function () {
-					$scope.teamsGridOptions.selectItem(0, true)
-				});
-			}
+		$scope.goDown = function (row, evt) {
+			$scope.parentTeamStack.push({index: row.rowIndex, team: row.entity});
+			loadTeams(row.entity.id, 0);
 		};
 
 		$scope.goUp = function () {
-			$scope.$parent.teams = $scope.teamsStack.pop();
-			$timeout(function () {
-				$scope.teamsGridOptions.selectItem(0, true)
-			});
+			var entry = $scope.parentTeamStack.pop();
+			loadTeams(entry.team.parentId, entry.index);
 		};
 
-		$scope.hasSubTeams = function (team) {
-			return team.subteams && team.subteams.length > 0;
+		$scope.getParentTeam = function () {
+			if ($scope.parentTeamStack.length > 0) {
+				return $scope.parentTeamStack[$scope.parentTeamStack.length - 1].team;
+			}
 		};
 
 		$scope.getTeamNameCellTemplate = function () {
 			return '<div class="ngCellText" ng-class="col.colIndex()">' +
 				'<span ng-cell-text>' +
-				'<span ng-show="hasSubTeams(row.entity)"><a href="" ng-click="goDown(row.entity)">{{row.entity.name}}</a></span>' +
-				'<span ng-show="!hasSubTeams(row.entity)">{{row.entity.name}}</span>' +
-				'</span>';
+				'<span><a href="" ng-click="$event.stopPropagation(); goDown(row);">{{row.entity.name}}</a></span>';
 		};
 
 		$scope.teamsGridOptions = {
@@ -106,24 +106,28 @@ angular.module('skillsJsApp')
 			filterOptions: $scope.filterOptions,
 			afterSelectionChange: function (row) {
 				if (row.selected === true) {
-					$scope.loadMembers(row.entity);
+					$scope.loadMembers(row.entity, 0);
 				}
 			}
 		};
 
-		personService.loadTeams().then(function (response) {
-			$scope.$parent.teams = response; // ng-grid bug? must be set on parent.
-			if ($scope.$parent.teams.length > 0) {
-				$scope.loadMembers($scope.$parent.teams[0]);
-				$timeout(function () {
-					$scope.teamsGridOptions.selectItem(0, true)
-				});
-			}
-			else {
-				$scope.members = [];
-			}
-		}).catch(function (error) {
-			$scope.errorAlert(error);
-		});
+		function loadTeams(parentId, selectRowIndex) {
+			personService.loadTeams(parentId).then(function (response) {
+				$scope.$parent.teams = response; // ng-grid? must be set on parent.
+				if ($scope.$parent.teams.length > 0) {
+					$scope.loadMembers($scope.$parent.teams[0], 0);
+					$timeout(function () {
+						$scope.teamsGridOptions.selectRow(selectRowIndex, true);
+					});
+				}
+				else {
+					$scope.$parent.noTeamSelected();
+				}
+			}).catch(function (error) {
+				$scope.errorAlert(error);
+			});
+		}
 
-	}]);
+		loadTeams(undefined, 0);
+	}])
+;

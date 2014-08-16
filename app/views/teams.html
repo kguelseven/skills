@@ -2,37 +2,63 @@
     <h1>Teams/Mitarbeiter</h1>
     <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
     <div class="row">
+
         <div class="col-md-4" ng-controller="TeamsGridController">
             <h3>Teams
                 <button type="button" class="btn btn-default btn-xs" ng-click="addTeam()"
                         ng-show="showAddTeamButton">
                     <span class="glyphicon glyphicon-plus-sign"></span></button>
-                <span class="pull-right"><button type="button" class="btn btn-default btn-xs"
-                                                 ng-click="goUp()"
-                                                 ng-hide="teamsStack.length === 0">
+                <span class="pull-right"><small>{{getParentTeam().name}}</small> <button type="button"
+                                                                                         class="btn btn-default btn-xs"
+                                                                                         ng-click="goUp()"
+                                                                                         ng-hide="!getParentTeam()">
                     <span class="glyphicon glyphicon-chevron-up"></span></button></span>
             </h3>
             <div ng-show="showTeamInput">
                 <form name="teamInputForm" class="form-inline">
                     <div class="form-group">
-                        <label for="name" class="sr-only">Name</label>
-                        <input id="name" class="form-control" placeholder="Name eingeben" style="width: 260px;" type="text"
-                               ng-model="team.name" required/>
-                        <button type="button" class="btn btn-default btn-sm" ng-click="save()" ng-disabled="teamInputForm.$invalid || teamDoesNotExist() " >
+                        <label for="team.name" class="sr-only">Name</label>
+                        <input id="team.name" class="form-control" placeholder="Name eingeben"
+                               focus-on="teamEdited.name" type="text" size="40"
+                               ng-model="teamEdited.name" required/>
+                        <button type="button" class="btn btn-default btn-xs" ng-click="save()"
+                                ng-disabled="teamInputForm.$invalid || isValidTeam()">
                             <span class="glyphicon glyphicon-ok"></span></button>
-                        <button type="button" class="btn btn-default btn-sm" ng-click="cancel()">
+                        <button type="button" class="btn btn-default btn-xs" ng-click="cancel()">
                             <span class="glyphicon glyphicon-remove"></span></button>
                     </div>
                 </form>
             </div>
             <div class="teamsGridStyle" ng-grid="teamsGridOptions"></div>
         </div>
+
         <div class="col-md-8">
-            <h3>Mitarbeiter ({{teamSelected}})
-                <button type="button" class="btn btn-default btn-xs" ng-click="addMember()">
+            <h3>Mitarbeiter ({{teamSelected.name}})
+                <button type="button" class="btn btn-default btn-xs" ng-click="addMember()"
+                        ng-show="teamSelected">
                     <span class="glyphicon glyphicon-plus-sign"></span></button>
             </h3>
+            <div ng-show="showMemberInput">
+                <form name="memberInputForm" class="form-inline">
+                    <div class="form-group">
+                        <label for="member.vorname" class="sr-only">Vorname</label>
+                        <input id="member.vorname" class="form-control" placeholder="Vorname eingeben"
+                               focus-on="memberEdited.name" type="text" size="40"
+                               ng-model="memberEdited.name" required/>
+                        <label for="member.name" class="sr-only">Name</label>
+                        <input id="member.name" class="form-control" placeholder="Name eingeben"
+                               focus-on="memberEdited.surname" type="text" size="40"
+                               ng-model="memberEdited.surname" required/>
+                        <button type="button" class="btn btn-default btn-xs" ng-click="save()"
+                                ng-disabled="memberInputForm.$invalid">
+                            <span class="glyphicon glyphicon-ok"></span></button>
+                        <button type="button" class="btn btn-default btn-xs" ng-click="cancel()">
+                            <span class="glyphicon glyphicon-remove"></span></button>
+                    </div>
+            </div>
+            </form>
             <div class="membersGridStyle" ng-grid="membersGridOptions"></div>
         </div>
+
     </div>
 </div>

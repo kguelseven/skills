@@ -5,7 +5,7 @@
         <div class="form-group">
             <label for="team">Team</label>
             <select id="team" class="form-control" ng-model="teamSelected" autofocus
-                    ng-options="team.name for team in teams"
+                    ng-options="team.name group by team.parent.name for team in teams"
                     ng-change="teamChanged()"></select>
         </div>
         <div class="form-group">
